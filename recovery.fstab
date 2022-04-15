@@ -1,0 +1,17 @@
+# mount point       fstype    device                                                                flags
+/system           ext4     system                                                    flags=display="System";backup=1;logical;slotselect
+/product          ext4     product                                                   flags=display="Product";backup=1;logical;slotselect
+/vendor           ext4     vendor                                                    flags=display="Vendor";backup=1;logical;slotselect
+/odm              ext4     odm                                                       flags=display="Odm";backup=1;logical;slotselect
+/metadata         ext4     /dev/block/by-name/metadata                               flags=display="Metadata"
+/data             ext4     /dev/block/bootdevice/by-name/userdata                    flags=display="Data"
+/sdcard1          vfat     /devices/platform/soc/8804000.sdhci/mmc_host*             flags=display="Sdcard1"
+/sdcard1          vfat     /devices/platform/soc/1da4000.ufshc_card/host*            flags=display="Sdcard1"
+/firmware_mnt     vfat     /dev/block/bootdevice/by-name/modem                       flags=display="Firmware_mnt";slotselect
+/dsp              ext4     /dev/block/bootdevice/by-name/dsp                         flags=display="Dsp";slotselect
+/persist          ext4     /dev/block/bootdevice/by-name/persist                     flags=display="Persist"
+/bt_firmware      vfat     /dev/block/bootdevice/by-name/bluetooth                   flags=display="Bt_firmware";slotselect
+/sftpfw           vfat     /dev/block/bootdevice/by-name/sftpfw                      flags=display="Sftpfw";slotselect
+/sfpd             vfat     /dev/block/bootdevice/by-name/sfpd                        flags=display="Sfpd"
+/misc             emmc     /dev/block/bootdevice/by-name/misc                        flags=display="Misc";backup=1;flashimg=1
+/usbotg           vfat     /devices/platform/soc/*.ssusb/*.dwc3/xhci-hcd.*.auto*     flags=display="Usbotg"
