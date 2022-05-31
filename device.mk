@@ -34,3 +34,10 @@ PRODUCT_PACKAGES += \
     update_engine \
     update_verifier \
     update_engine_sideload
+    
+#TWRP Decryption
+PRODUCT_PACKAGES += \
+    qseecomd \
+    keymaster \
+    qcom_decrypt \
+    qcom_decrypt_fbe
