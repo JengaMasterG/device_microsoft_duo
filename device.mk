@@ -6,6 +6,10 @@
 #
 
 LOCAL_PATH := device/microsoft/duo
+
+#Include Microsoft Vendor Blobs
+-include vendor/microsoft/duo/duo-vendor.mk
+
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
