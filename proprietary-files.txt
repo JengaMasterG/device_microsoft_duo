@@ -501,6 +501,11 @@ vendor/lib64/vendor.qti.ims.rcsconfig@2.1.so
 vendor/lib64/vendor.qti.imsrtpservice@3.0-service-Impl.so
 vendor/lib64/vendor.qti.imsrtpservice@3.0.so
 
+#Init Scripts (Pull and Moves these to Device Tree)
+vendor/etc/init/hw/init.qcom.rc
+vendor/etc/init/hw/init.qcom.usb.rc
+vendor/etc/init/hw/init.target.rc
+
 # IO prefetcher
 vendor/bin/hw/vendor.qti.hardware.iop@2.0-service
 vendor/etc/init/vendor.qti.hardware.iop@2.0-service.rc
