@@ -2,7 +2,7 @@
 Device configuration for Microsoft Surface Duo
 =========================================
 
-The Microsoft Surface Duo (codenamed _"duo"_) is the first foldable smartphonef from Microsoft.
+The Microsoft Surface Duo (codenamed _"duo"_) is the first foldable smartphone from Microsoft.
 
 It was announced in October 2019. Release date was in September 2020.
 
