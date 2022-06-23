@@ -26,6 +26,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+import /vendor/etc/init/hw/init.qcom.rc
+import /init.recovery.qcom_decrypt.rc
+
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
 
@@ -45,8 +48,8 @@ on init
     write /config/usb_gadget/g1/os_desc/qw_sign "MSFT100"
     setprop sys.usb.configfs 1
 
-on property:ro.boot.usbconfigfs=false
-   setprop sys.usb.configfs 0
+on property:ro.boot.usbconfigfs=true
+   setprop sys.usb.configfs 1
 
 on property:ro.boot.recover_usb=*
     write /sys/bus/platform/devices/a600000.ssusb/mode "peripheral"
