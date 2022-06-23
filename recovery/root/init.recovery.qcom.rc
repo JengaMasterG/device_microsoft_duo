@@ -25,16 +25,14 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import vendor/etc/init/hw/init.qcom.rc
 import /init.recovery.qcom_decrypt.rc
 
 on init
     write /sys/class/backlight/panel0-backlight/brightness 200
-    setprop sys.usb.configfs 1
     setprop prepdecrypt.loglevel 2
 
 on boot
-    setprop sys.usb.config mass_storage,mtp,adb
+    write /proc/touchpanel/gesture_enable 1
 
 on property:ro.boot.usbcontroller=*
     setprop sys.usb.controller ${ro.boot.usbcontroller}
