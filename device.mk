@@ -8,7 +8,7 @@
 LOCAL_PATH := device/microsoft/duo
 
 #Include Microsoft Vendor Blobs
--include vendor/microsoft/duo/duo-vendor.mk
+$(call inherit-product, vendor/microsoft/duo/duo-vendor.mk)
 
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
@@ -32,6 +32,21 @@ PRODUCT_PACKAGES += \
 #    libz \
 #    libcutils
 
+# Init Scripts
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.factory.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.factory.rc \
+    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
+    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.usb.rc \
+    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.qti.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.qti.rc \
+    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.surfaceduo.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.surfaceduo.rc \
+    $(LOCAL_PATH)/recovery/root/init.recovery.duo.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.duo.rc \
+    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.target.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.target.rc
+
+# Keystore
+PRODUCT_PACKAGES +=\
+    android.hardware.keymaster@4.1.vendor
+
+#OTA Update Engine
 PRODUCT_PACKAGES += \
     otapreopt_script \
     cppreopts.sh \
@@ -40,8 +55,17 @@ PRODUCT_PACKAGES += \
     update_engine_sideload
     
 #TWRP Decryption
+#PRODUCT_COPY_FILES += \
+    #$(OUT_DIR)/recovery/root/
+
 PRODUCT_PACKAGES += \
+    qseecom \
     qseecomd \
     keymaster \
+    gatekeeper \
     qcom_decrypt \
     qcom_decrypt_fbe
+
+# Uevent
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/root/vendor/ueventd.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc
