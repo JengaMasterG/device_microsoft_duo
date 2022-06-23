@@ -34,8 +34,8 @@ on init
     setprop prepdecrypt.loglevel 2
 
 on boot
-    set prop sys.usb.config mass_storage,mtp,adb
-    
+    setprop sys.usb.config mass_storage,mtp,adb
+
 on property:ro.boot.usbcontroller=*
     setprop sys.usb.controller ${ro.boot.usbcontroller}
     write /sys/class/udc/${ro.boot.usbcontroller}/device/../mode peripheral
