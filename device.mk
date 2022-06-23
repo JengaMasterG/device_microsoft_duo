@@ -11,6 +11,11 @@ LOCAL_PATH := device/microsoft/duo
 $(call inherit-product, vendor/microsoft/duo/duo-vendor.mk)
 
 # A/B
+AB_OTA_PARTITIONS += \
+    boot \
+    system \
+    vendor
+
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
@@ -20,10 +25,12 @@ AB_OTA_POSTINSTALL_CONFIG += \
 # Boot control HAL
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-impl.recovery \
     android.hardware.boot@1.0-service
 
 PRODUCT_PACKAGES += \
-    bootctrl.msmnile
+    bootctrl.msmnile \
+    bootctrl.msmnile.recovery
 
 #Deprecated in 11.0
 #PRODUCT_STATIC_BOOT_CONTROL_HAL := \
@@ -39,8 +46,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.usb.rc \
     $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.qti.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.qti.rc \
     $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.surfaceduo.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.surfaceduo.rc \
-    $(LOCAL_PATH)/recovery/root/init.recovery.duo.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.duo.rc \
+    $(LOCAL_PATH)/recovery/root/init.recovery.usb.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.usb.rc \
+    $(LOCAL_PATH)/recovery/root/init.recovery.qcom.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.qcom.rc \
     $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.target.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.target.rc
+
+PRODUCT_PACKAGES += \
+    init.surfaceduo.rc \
 
 # Keystore
 PRODUCT_PACKAGES +=\
