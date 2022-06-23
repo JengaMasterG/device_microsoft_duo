@@ -33,6 +33,7 @@ on init
 
 on boot
     write /proc/touchpanel/gesture_enable 1
+    setprop sys.usb.config mtp,adb
 
 on property:ro.boot.usbcontroller=*
     setprop sys.usb.controller ${ro.boot.usbcontroller}
