@@ -8,7 +8,7 @@
 LOCAL_PATH := device/microsoft/duo
 
 #Include Microsoft Vendor Blobs
-$(call inherit-product, vendor/microsoft/duo/duo-vendor.mk)
+$(call inherit-product-if-exists, vendor/microsoft/duo/duo-vendor.mk)
 
 # A/B
 AB_OTA_PARTITIONS += \
