@@ -14,7 +14,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, device/microsoft/duo/device.mk)
 
 # Inherit some common TWRP stuff.
-$(call inherit-product, vendor/twrp/config/common.mk)
+$(call inherit-product-if-exists, vendor/twrp/config/common.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := duo
