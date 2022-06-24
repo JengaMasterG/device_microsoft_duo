@@ -11,7 +11,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Inherit from duo device
-$(call inherit-product-if-exists, device/microsoft/duo/device.mk)
+$(call inherit-product, device/microsoft/duo/device.mk)
 
 # Inherit some common TWRP stuff.
 $(call inherit-product-if-exists, vendor/twrp/config/common.mk)
