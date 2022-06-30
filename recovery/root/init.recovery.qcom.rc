@@ -28,12 +28,37 @@
 import /init.recovery.qcom_decrypt.rc
 
 on init
-    write /sys/class/backlight/panel0-backlight/brightness 200
     setprop prepdecrypt.loglevel 2
+
+    start touchpreload
+    start surfacetouch
+    start touchpen
+
+on early-init
+    # Wait to make sure we do not try to talk too early to the display
+    wait /sys/class/drm/card0
+
+service touchpreload /system/bin/init.surface.touch.preloads
+    oneshot
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:0
+
+service touchpen /vendor/bin/hw/vendor.surface.touchpen@1.0-service
+    class hal
+    user root
+    group root
 
 on boot
     write /proc/touchpanel/gesture_enable 1
     setprop sys.usb.config mtp,adb
+
+on init
+    start touchpreload
+    start surfacetouch
+    start touchpen
+
 
 on property:ro.boot.usbcontroller=*
     setprop sys.usb.controller ${ro.boot.usbcontroller}
