@@ -1,0 +1,3 @@
+<config>
+    <hidden-api-whitelisted-app package="com.surface.touchpenservice" />
+</config>

@@ -1,0 +1,26 @@
+
+#Create the directories used by vendor.touchpen_hal
+on post-fs-data
+    mkdir /data/vendor/vendor.touchpen_hal/ 0700 system system
+    start copy-TwoPanelAlignment
+
+service vendor.touchpen_hal /vendor/bin/hw/vendor.surface.touchpen@1.0-service
+    interface vendor.surface.touchpen@1.0::ITouchPen default
+    class hal
+    user system
+    group uhid wakelock
+    capabilities BLOCK_SUSPEND
+    priority -10
+    writepid /dev/cpuset/system-background/tasks
+    onrestart write /sys/devices/platform/soc/89c000.spi/spi_master/spi1/spi1.0/power/control on\n
+
+on property:init.svc.vendor.touchpen_hal=running
+    chown system system /sys/devices/platform/soc/89c000.spi/spi_master/spi1/spi1.0/power/wakeup
+    restorecon /sys/devices/platform/soc/89c000.spi/spi_master/spi1/spi1.0/power/wakeup
+
+service copy-TwoPanelAlignment /vendor/bin/init.surface.touch.preloads.sh
+    class core
+    user system
+    group system
+    disabled
+    oneshot
