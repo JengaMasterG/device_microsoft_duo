@@ -27,18 +27,20 @@
 
 import /init.recovery.qcom_decrypt.rc
 
-on init
-    setprop prepdecrypt.loglevel 2
+on fs
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    start touchpreload
-    start surfacetouch
-    start touchpen
+    chmod 0660 /dev/qseecom
+    chown system drmrpc /dev/qseecom
+    chmod 0664 /dev/ion
+    chown system system /dev/ion
+    install_keyring
 
-on early-init
-    # Wait to make sure we do not try to talk too early to the display
-    wait /sys/class/drm/card0
+on early-fs
+    start vold
 
-service touchpreload /system/bin/init.surface.touch.preloads
+service touchpreload /vendor/bin/init.surface.touch.preloads.sh
     oneshot
     disabled
     user root
@@ -46,24 +48,72 @@ service touchpreload /system/bin/init.surface.touch.preloads
     seclabel u:r:recovery:0
 
 service touchpen /vendor/bin/hw/vendor.surface.touchpen@1.0-service
-    class hal
+    oneshot
     user root
     group root
+    seclabel u:r:recovery:0
+
+service time_daemon /system/bin/time_daemon
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service logd /system/bin/logd
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service hwservicemanager /system/bin/hwservicemanager
+    user root
+    group root
+    disabled
+    onrestart setprop hwservicemanager.ready false
+    seclabel u:r:recovery:s0
+
+service servicemanager /system/bin/servicemanager
+    user root
+    group root readproc
+    disabled
+    seclabel u:r:recovery:s0    
 
 on boot
     write /proc/touchpanel/gesture_enable 1
-    setprop sys.usb.config mtp,adb
+    insmod /sbin/sec_touchscreen.ko
+    setprop sys.usb.config adb
 
 on init
+    setprop prepdecrypt.loglevel 2
+    
     start touchpreload
-    start surfacetouch
+    start libsurfacetouch
     start touchpen
+    start logd
+    start boot-1-0
+    start prepdecrypt
+    start time_daemon
+    setprop crypto.ready 1
 
+on early-init
+    # Wait to make sure we do not try to talk too early to the display
+    wait /sys/class/drm/card0
 
-on property:ro.boot.usbcontroller=*
-    setprop sys.usb.controller ${ro.boot.usbcontroller}
-    write /sys/class/udc/${ro.boot.usbcontroller}/device/../mode peripheral
+on property:crypto.ready=0
+    stop sbinqseecomd
+    stop keymaster-4-0-qti
+    stop gatekeeper-1-0-qti
+    stop servicemanager
 
-on fs
-    wait /dev/block/platform/soc/${ro.boot.bootdevice}
-    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+on property:crypto.ready=1
+    start sbinqseecomd
+
+on property:vendor.sys.listeners.registered=true
+    start keymaster-4-0-qti
+    start gatekeeper-1-0-qti
+    start servicemanager
+    start hwservicemanager
+    restart time_daemon
+
+on property:sys.usb.config=mtp,adb
+    restart time_daemon
