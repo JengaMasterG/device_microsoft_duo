@@ -32,30 +32,13 @@ PRODUCT_PACKAGES += \
     bootctrl.msmnile \
     bootctrl.msmnile.recovery
 
-#Deprecated in 11.0
-#PRODUCT_STATIC_BOOT_CONTROL_HAL := \
-#    bootctrl.msmnile \
-#    libgptutils \
-#    libz \
-#    libcutils
+# Dynamic partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# Init Scripts
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.factory.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.factory.rc \
-    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.rc \
-    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.usb.rc \
-    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.qcom.qti.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.qcom.qti.rc \
-    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.surfaceduo.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.surfaceduo.rc \
-    $(LOCAL_PATH)/recovery/root/init.recovery.usb.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.usb.rc \
-    $(LOCAL_PATH)/recovery/root/init.recovery.qcom.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.qcom.rc \
-    $(LOCAL_PATH)/recovery/root/vendor/etc/init/hw/init.target.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.target.rc
-
+# fastbootd
 PRODUCT_PACKAGES += \
-    init.surfaceduo.rc \
-
-# Keystore
-PRODUCT_PACKAGES +=\
-    android.hardware.keymaster@4.1.vendor
+    android.hardware.fastboot@1.0-impl-mock \
+    fastbootd
 
 #OTA Update Engine
 PRODUCT_PACKAGES += \
@@ -64,18 +47,38 @@ PRODUCT_PACKAGES += \
     update_engine \
     update_verifier \
     update_engine_sideload
-    
-#TWRP Decryption
-#PRODUCT_COPY_FILES += \
-    #$(OUT_DIR)/recovery/root/
+
+#Soong Namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    $(LOCAL_PATH) \
+    vendor/qcom/opensource/commonsys-intf/display \
+    external/icu
+
+#File Based Encryption (FBE)
+BOARD_USES_QCOM_FBE_DECRYPTION := true
 
 PRODUCT_PACKAGES += \
-    qseecom \
-    qseecomd \
-    keymaster \
-    gatekeeper \
     qcom_decrypt \
     qcom_decrypt_fbe
+
+# Additional Binaries $ libraries needed for recovery
+PRODUCT_HOST_PACKAGES += \
+    libandroidicu.so
+
+TARGET_RECOVERY_DEVICE_MODULES += \
+    libion \
+    vendor.display.config@1.0 \
+    vendor.display.config@2.0 \
+    libdisplayconfig.qti
+
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so
+
+#PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(PRODUCT_RELEASE_NAME)/obj/SHARED_LIBRARIES/libandroidicu_intermediates/libandroidicu.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libandroidicu.so
 
 #Pen
 #BUILD_PREBUILT += \
