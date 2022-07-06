@@ -52,6 +52,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     vendor/qcom/opensource/commonsys-intf/display \
+    vendor/qcom/opensource/cryptfs_hw \
     external/icu
 
 #File Based Encryption (FBE)
@@ -61,30 +62,38 @@ PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
 
-# Additional Binaries $ libraries needed for recovery
-PRODUCT_HOST_PACKAGES += \
-    libandroidicu.so
-
+# Additional Binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
     libion \
+    liblog \
+    libprocessgroup \
+    libc++ \
+    libc \
+    libm \
+    libdl \
+    qseecomd \
+    keymaster \
+    gatekeeper \
     vendor.display.config@1.0 \
     vendor.display.config@2.0 \
     libdisplayconfig.qti
 
 RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/liblog.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libprocessgroup.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libc++.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libc.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libm.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libdl.so \
+    $(TARGET_OUT_SYSTEM_SHARED_LIBRARIES)/qseecomd \
+    $(TARGET_OUT_SYSTEM_SHARED_LIBRARIES)/keymaster \
+    $(TARGET_OUT_SYSTEM_SHARED_LIBRARIES)/gatekeeper \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libcryptfs_hw.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.qti.hardware.cryptfshw@1.0.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so
-
-#PRODUCT_COPY_FILES += \
-    $(OUT_DIR)/target/product/$(PRODUCT_RELEASE_NAME)/obj/SHARED_LIBRARIES/libandroidicu_intermediates/libandroidicu.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/libandroidicu.so
-
-#Pen
-#BUILD_PREBUILT += \
-#    $(LOCAL_PATH)/prebuilt/touchPen/TouchPenService/TouchPenService.apk:$(TARGET_COPY_OUT_RECOVERY)/root/system_ext/priv-app/TouchPenService/TouchPenService.apk \
-#    $(LOCAL_PATH)/prebuilt/touchPen/TouchPenService/oat/arm64/TouchPenService.odex:$(TARGET_COPY_OUT_RECOVERY)/root/system_ext/priv-app/TouchPenService/oat/arm64/TouchPenService.odex \
-#    $(LOCAL_PATH)/prebuilt/touchPen/TouchPenService/oat/arm64/TouchPenService.vdex:$(TARGET_COPY_OUT_RECOVERY)/root/system_ext/priv-app/TouchPenService/oat/arm64/TouchPenService.vdex
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/touchPen/vendor.surface.touchpen@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.surface.touchpen@1.0.so \
