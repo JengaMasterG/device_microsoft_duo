@@ -6,9 +6,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/duo.mk
-
-COMMON_LUNCH_CHOICES := \
-    duo-user \
-    duo-userdebug \
-    duo-eng
+    $(LOCAL_DIR)/twrp_duo.mk
