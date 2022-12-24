@@ -26,7 +26,6 @@
 #
 
 import /vendor/init/etc/vendor.surface.touchpen@1.0-service.rc
-import /vendor/init/etc/init.qti.display.rc
 import /init.recovery.qcom_decrypt.rc
 
 on fs

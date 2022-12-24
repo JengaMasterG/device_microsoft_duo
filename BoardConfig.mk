@@ -66,8 +66,14 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 BOARD_KERNEL_IMAGE_NAME := Image.gz
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_SOURCE := kernel/msm-4.14/
+TARGET_KERNEL_CONFIG :=vendor/surfaceduo_defconfig
+#TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+#TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image.gz
+
+#Kernel Toolchain (This includes microsoft's )
+-include $(ROOT_DIR)/kernel/msm-4.14/build.config.common
 
 # Platform
 TARGET_BOARD_PLATFORM := msmnile
