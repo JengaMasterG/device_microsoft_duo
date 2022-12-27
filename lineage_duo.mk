@@ -50,4 +50,4 @@ DEVICE_PATH := device/$(PRODUCT_BRAND)/$(PRODUCT_DEVICE)
 # Inherit from hardware-specific part of the product configuration
 $(call inherit-product, $(DEVICE_PATH)/device.mk)
 
-BUILD_TYPE := twrp
+BUILD_TYPE := lineage

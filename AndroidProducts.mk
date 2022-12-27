@@ -6,4 +6,5 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_duo.mk
+    $(LOCAL_DIR)/twrp_duo.mk \
+    $(LOCAL_DIR)/lineage_duo.mk

@@ -57,17 +57,6 @@ PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
 
-#Pen
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/prebuilt/touchPen/vendor.surface.touchpen@1.0.so:$(TARGET_COPY_OUT_VENDOR)/lib64/vendor.surface.touchpen@1.0.so \
-    $(DEVICE_PATH)/prebuilt/touchPen/vendor.surface.touchpen@1.0-service:$(TARGET_COPY_OUT_VENDOR)/bin/hw/vendor.surface.touchpen@1.0-service \
-    $(DEVICE_PATH)/prebuilt/touchPen/vendor.surface.touchpen@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.surface.touchpen@1.0-service.rc \
-    $(DEVICE_PATH)/prebuilt/touch/init.surface.touch.preloads.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.surface.touch.preloads.sh
-
-PRODUCT_PACKAGES += \
-    vendor.surface.touchpen@1.0 \
-    vendor.surface.touchpen@1.0-service
-
 #Touch
 PRODUCT_COPY_FILES += \
     $(DEVICE_PATH)/prebuilt/touch/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.touchscreen.multitouch.jazzhand.xml \
