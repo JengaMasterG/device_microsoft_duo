@@ -56,14 +56,3 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
-
-#Touch
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/prebuilt/touch/android.hardware.touchscreen.multitouch.jazzhand.xml:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.touchscreen.multitouch.jazzhand.xml \
-    $(DEVICE_PATH)/prebuilt/touch/init.qti.display.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.qti.display.rc \
-    $(DEVICE_PATH)/prebuilt/touch/libsurfacetouch.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libsurfacetouch.so \
-    $(DEVICE_PATH)/prebuilt/touch/surface_touchscreen.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/surface_touchscreen.idc \
-    $(DEVICE_PATH)/prebuilt/touch/init.qti.display.sh:$(TARGET_COPY_OUT_PRODUCT)/bin/init.qti.display.sh
-
-PRODUCT_PACKAGES += \
-    libsurfacetouch
