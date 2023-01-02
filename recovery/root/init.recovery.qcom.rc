@@ -25,7 +25,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import /vendor/init/etc/vendor.surface.touchpen@1.0-service.rc
+import /vendor/etc/init/hw/init.target.rc
 import /init.recovery.qcom_decrypt.rc
 
 on fs
