@@ -5,12 +5,11 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Inherit from common AOSP config
-$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
-
 #Include Microsoft Vendor Blobs
 $(call inherit-product-if-exists, vendor/microsoft/duo/duo-vendor.mk)
+
+#API Level
+PRODUCT_SHIPPING_API_LEVEL := 32
 
 # A/B support
 AB_OTA_UPDATER := true
@@ -26,11 +25,7 @@ AB_OTA_PARTITIONS += \
 # A/B support
 PRODUCT_PACKAGES += \
     otapreopt_script \
-    cppreopts.sh \
-    update_engine \
-    update_engine_sideload \
-    update_verifier
-
+  
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
     POSTINSTALL_PATH_system=system/bin/otapreopt_script \
@@ -39,20 +34,27 @@ AB_OTA_POSTINSTALL_CONFIG += \
 
 # Boot and Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.0-impl.recovery \
-    android.hardware.health@2.1-impl.recovery \
+    android.hardware.boot@1.1-impl.recovery \
     bootctrl.$(PRODUCT_PLATFORM).recovery
-
-# HIDL
-PRODUCT_PACKAGES += \
-    libhidltransport \
-    libhwbinder
 
 #Soong Namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(DEVICE_PATH)
 
+#Update Engine
+PRODUCT_PACKAGES += \
+    update_engine \
+    update_engine_sideload \
+    update_verifier
+
 #File Based Encryption (FBE)
 PRODUCT_PACKAGES += \
     qcom_decrypt \
     qcom_decrypt_fbe
+
+#Recovery
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/libdisplayconfig.qti.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
+    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so
