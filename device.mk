@@ -1,6 +1,6 @@
 #
-# Copyright (C) 2022 The Android Open Source Project
-# Copyright (C) 2022 SebaUbuntu's TWRP device tree generator
+# Copyright (C) 2023 The Android Open Source Project
+# Copyright (C) 2023 SebaUbuntu's TWRP device tree generator
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -8,8 +8,7 @@
 #Include Microsoft Vendor Blobs
 $(call inherit-product-if-exists, vendor/microsoft/duo/duo-vendor.mk)
 
-#API Level
-PRODUCT_SHIPPING_API_LEVEL := 32
+LOCAL_PATH := device/microsoft/duo
 
 # A/B support
 AB_OTA_UPDATER := true
@@ -34,8 +33,17 @@ AB_OTA_POSTINSTALL_CONFIG += \
 
 # Boot and Boot control HAL
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-impl.recovery \
-    bootctrl.$(PRODUCT_PLATFORM).recovery
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-service
+
+PRODUCT_PACKAGES += \
+    bootctrl.msmnile
+
+PRODUCT_STATIC_BOOT_CONTROL_HAL := \
+    bootctrl.msmnile \
+    libgptutils \
+    libz \
+    libcutils
 
 #Soong Namespaces
 PRODUCT_SOONG_NAMESPACES += \
