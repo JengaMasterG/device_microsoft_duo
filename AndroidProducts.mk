@@ -1,10 +1,13 @@
 #
-# Copyright (C) 2022 The Android Open Source Project
-# Copyright (C) 2022 SebaUbuntu's TWRP device tree generator
+# Copyright (C) 2024 The LineageOS Project
 #
 # SPDX-License-Identifier: Apache-2.0
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/twrp_duo.mk \
     $(LOCAL_DIR)/lineage_duo.mk
+
+COMMON_LUNCH_CHOICES := \
+    lineage_duo-user \
+    lineage_duo-userdebug \
+    lineage_duo-eng

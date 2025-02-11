@@ -1,12 +1,8 @@
-soong_namespace {
-    imports: [
-        "device/microsoft/duo/gpt-utils",
-        "hardware/qcom/bootctrl",
-    ],
-}
+//
+// Copyright (C) 2024 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
 
-cc_library {
-    name: "libgptutils",
-    defaults: ["libgptutils_defaults"],
-    vendor_available: true,
+soong_namespace {
 }

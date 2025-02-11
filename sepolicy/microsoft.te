@@ -1,4 +1,0 @@
-recovery_only(`
-  allow kernel rootfs:dir add_name;
-  allow kernel rootfs:dir write;
-')
