@@ -1,0 +1,6 @@
+media.settings.xml=/vendor/etc/media_profiles_vendor.xml
+rild.libpath=/vendor/lib64/libreference-ril.so
+ro.setupwizard.mode=ENABLED
+ro.telephony.default_network=33,33
+ro.vendor.microsoft.va_camera.support=1
+vendor.camera.aux.packagelist=com.microsoft.surface.camera.v2,com.example.android.TSCameraTest
